@@ -10,7 +10,14 @@ defmodule FullStackorySlack.MixProject do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ]
     ]
   end
 
@@ -42,7 +49,10 @@ defmodule FullStackorySlack.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:credo, "~> 1.2.0-rc2", only: [:dev, :test], runtime: false},
+      {:sobelow, "~> 0.9", only: :dev},
+      {:excoveralls, "~> 0.12.1", only: :test}
     ]
   end
 
