@@ -24,6 +24,7 @@ defmodule FullStackorySlack.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import FullStackorySlack.DataCase
+      import FullStackorySlack.DataHelper
     end
   end
 

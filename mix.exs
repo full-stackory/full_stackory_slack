@@ -40,9 +40,11 @@ defmodule FullStackorySlack.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:dialyxir, "~> 1.0.0-rc.7", only: [:dev], runtime: false},
       {:phoenix, "~> 1.4.11"},
       {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 4.0"},
+      {:ecto_enum, "~> 1.4"},
       {:ecto_sql, "~> 3.1"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.11"},
@@ -52,7 +54,9 @@ defmodule FullStackorySlack.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:credo, "~> 1.2.0-rc2", only: [:dev, :test], runtime: false},
       {:sobelow, "~> 0.9", only: :dev},
-      {:excoveralls, "~> 0.12.1", only: :test}
+      {:excoveralls, "~> 0.12.1", only: :test},
+      {:stripity_stripe,
+       github: "code-corps/stripity_stripe", ref: "5b9a82c3b742911fdc12d1b6d3137faeda51edaa"}
     ]
   end
 

@@ -1,5 +1,6 @@
 defmodule FullStackorySlackWeb.Router do
   use FullStackorySlackWeb, :router
+  alias FullStackorySlackWeb.Plugs.StripePlug
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -9,8 +10,9 @@ defmodule FullStackorySlackWeb.Router do
     plug :put_secure_browser_headers
   end
 
-  pipeline :api do
+  pipeline :stripe_api do
     plug :accepts, ["json"]
+    plug StripePlug
   end
 
   scope "/", FullStackorySlackWeb do
@@ -20,7 +22,12 @@ defmodule FullStackorySlackWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", FullStackorySlackWeb do
-  #   pipe_through :api
-  # end
+  scope "/stripe", FullStackorySlackWeb.Stripe do
+    pipe_through :stripe_api
+
+    post "/customer", CustomerController, :create
+    post "/invoice", InvoiceController, :create
+    post "/subscription", SubscriptionController, :create
+    post "/plan", PlanController, :create
+  end
 end

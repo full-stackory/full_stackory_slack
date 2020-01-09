@@ -29,5 +29,6 @@ defmodule FullStackorySlackWeb.UserSocket do
   #     FullStackorySlackWeb.Endpoint.broadcast("user_socket:#{user.id}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
+  @spec id(any()) :: nil
   def id(_socket), do: nil
 end
