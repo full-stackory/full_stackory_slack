@@ -13,6 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - uses: actions/setup-elixir@v1
+      with:
+        otp-version: 22.2.1
+        elixir-version: 1.10.0
     - name: Setup STRIPE_SECRET environment variable
       run: export STRIPE_SECRET="sk_test_123"
     - name: Setup STRIPE_HTTP_SECRET environment variable
