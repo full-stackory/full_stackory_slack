@@ -1,4 +1,4 @@
-name: CI
+name: Continuous Integration
 
 on:
   pull_request:
@@ -9,8 +9,19 @@ on:
       - master
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: postgres:12.1
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-elixir@v1
@@ -23,9 +34,9 @@ jobs:
       run: export STRIPE_HTTP_SECRET="secret"
     - name: Setup MIX_ENV environment variable
       run: export MIX_ENV="test"
-    - name: Run unit credo, dialyzer and unit tests
-      run: |
-        mix deps.get,
-        mix credo,
-        mix dialyzer,
-        mix test --cover
+    - name: Get dependencies
+      run: mix deps.get
+    - name: Run linter, tests, and dialyzer
+      run: mix credo
+      run: mix dialyzer
+      run: mix test --cover
