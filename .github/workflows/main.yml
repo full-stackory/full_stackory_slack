@@ -36,7 +36,6 @@ jobs:
       run: export MIX_ENV="test"
     - name: Get dependencies
       run: mix deps.get
-    - name: Run linter, tests, and dialyzer
-      run: mix credo
-      run: mix dialyzer
-      run: mix test --cover
+    - run: mix credo
+    - run: mix dialyzer
+    - run: mix test --cover
