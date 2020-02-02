@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  pull_request:
+    branches: 
+      - develop
+  push:
+    branches: 
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup STRIPE_SECRET environment variable
+      run: export STRIPE_SECRET="sk_test_123"
+    - name: Setup STRIPE_HTTP_SECRET environment variable
+      run: export STRIPE_HTTP_SECRET="secret"
+    - name: Setup MIX_ENV environment variable
+      run: export MIX_ENV="test"
+    - name: Run unit credo, dialyzer and unit tests
+      run: |
+        mix deps.get,
+        mix credo,
+        mix dialyzer,
+        mix test --cover
