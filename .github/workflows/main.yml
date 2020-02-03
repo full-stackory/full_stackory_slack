@@ -28,6 +28,7 @@ jobs:
         with:
           otp-version: 22.2.1
           elixir-version: 1.10.0
+      - name: Run checks
         env:
           STRIPE_SECRET: "sk_test_123"
           STRIPE_HTTP_SECRET: "secret"
