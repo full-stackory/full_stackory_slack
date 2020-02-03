@@ -23,20 +23,17 @@ jobs:
           --health-retries 5
 
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-elixir@v1
-      with:
-        otp-version: 22.2.1
-        elixir-version: 1.10.0
-    - name: Setup STRIPE_SECRET environment variable
-    - name: Setup STRIPE_HTTP_SECRET environment variable
-    - name: Setup MIX_ENV environment variable
-    - name: Get dependencies
-      env:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-elixir@v1
+        with:
+          otp-version: 22.2.1
+          elixir-version: 1.10.0
+      - name: Get dependencies
+      - env:
         STRIPE_SECRET: "sk_test_123"
         STRIPE_HTTP_SECRET: "secret"
         MIX_ENV: "test"
-      run: |
+      - run: |
         mix deps.get
         mix credo
         mix dialyzer
