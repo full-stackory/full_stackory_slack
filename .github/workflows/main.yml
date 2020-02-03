@@ -29,13 +29,15 @@ jobs:
         otp-version: 22.2.1
         elixir-version: 1.10.0
     - name: Setup STRIPE_SECRET environment variable
-      run: export STRIPE_SECRET="sk_test_123"
     - name: Setup STRIPE_HTTP_SECRET environment variable
-      run: export STRIPE_HTTP_SECRET="secret"
     - name: Setup MIX_ENV environment variable
-      run: export MIX_ENV="test"
     - name: Get dependencies
-      run: mix deps.get
-    - run: mix credo
-    - run: mix dialyzer
-    - run: mix test --cover
+      env:
+        STRIPE_SECRET: "sk_test_123"
+        STRIPE_HTTP_SECRET: "secret"
+        MIX_ENV: "test"
+      run: |
+        mix deps.get
+        mix credo
+        mix dialyzer
+        mix test --cover
