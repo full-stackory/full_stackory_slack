@@ -28,13 +28,12 @@ jobs:
         with:
           otp-version: 22.2.1
           elixir-version: 1.10.0
-      - name: Get dependencies
-      - env:
-        STRIPE_SECRET: "sk_test_123"
-        STRIPE_HTTP_SECRET: "secret"
-        MIX_ENV: "test"
-      - run: |
-        mix deps.get
-        mix credo
-        mix dialyzer
-        mix test --cover
+        env:
+          STRIPE_SECRET: "sk_test_123"
+          STRIPE_HTTP_SECRET: "secret"
+          MIX_ENV: "test"
+        run: |
+          mix deps.get
+          mix credo
+          mix dialyzer
+          mix test --cover
