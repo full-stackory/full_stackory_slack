@@ -16,6 +16,9 @@ jobs:
       db:
         image: postgres:12.1
         ports: ['5432:5432']
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -27,7 +30,7 @@ jobs:
       - uses: actions/setup-elixir@v1
         with:
           otp-version: 22.2.1
-          elixir-version: 1.10.0
+          elixir-version: 1.9.4
       - name: Run checks
         env:
           STRIPE_SECRET: "sk_test_123"
@@ -35,6 +38,7 @@ jobs:
           MIX_ENV: "test"
         run: |
           mix deps.get
+          mix ecto.create
+          mix ecto.migrate
           mix credo
-          mix dialyzer
           mix test --cover

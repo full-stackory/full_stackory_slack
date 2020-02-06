@@ -5,13 +5,15 @@ defmodule FullStackorySlack.Application do
 
   use Application
 
+  @impl true
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
       # Start the Ecto repository
       FullStackorySlack.Repo,
       # Start the endpoint when the application starts
-      FullStackorySlackWeb.Endpoint
+      FullStackorySlackWeb.Endpoint,
+      FullStackorySlack.PlanSupervisor
       # Starts a worker by calling: FullStackorySlack.Worker.start_link(arg)
       # {FullStackorySlack.Worker, arg},
     ]
@@ -24,6 +26,7 @@ defmodule FullStackorySlack.Application do
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
+  @impl true
   def config_change(changed, _new, removed) do
     FullStackorySlackWeb.Endpoint.config_change(changed, removed)
     :ok
